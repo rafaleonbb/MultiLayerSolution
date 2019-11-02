@@ -1,10 +1,11 @@
-﻿using System;
-namespace MultiLayerSolution.Bll
+﻿namespace MultiLayerSolution.Bll
 {
-	public class LogicFactory
+	public static class LogicFactory
 	{
-		public LogicFactory ()
-		{
-		}
+		/// <summary>
+		/// Construye una nueva instancia de la lógica de la aplicación
+		/// </summary>
+		/// <returns></returns>
+		public static IAppLogic Build () => new AppLogic ();
 	}
 }
