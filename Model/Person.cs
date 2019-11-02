@@ -1,10 +1,23 @@
-﻿using System;
-namespace MultiLayerSolution.Model
+﻿namespace MultiLayerSolution.Model
 {
-	public class Person
+	/// <summary>
+	/// Clase abstracta para tener las propiedades comunes de entidades persona
+	/// </summary>
+	public abstract class Person 
 	{
-		public Person ()
-		{
-		}
+		/// <summary>
+		/// Nombre
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
+		/// Dirección
+		/// </summary>
+		public string Address { get; set; }
+
+		/// <summary>
+		/// Teléfono
+		/// </summary>
+		public string Phone { get; set; }
 	}
 }

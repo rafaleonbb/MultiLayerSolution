@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace Model
+namespace MultiLayerSolution.Model
 {
-	public class Class1
+	public class Customer : Person, IEntity
 	{
+		public int Id { get; set; }
 	}
 }
