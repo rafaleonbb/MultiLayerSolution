@@ -23,7 +23,7 @@ namespace MultiLayerSolution.Bll
 		/// </summary>
 		/// <param name="customer"></param>
 		/// <returns></returns>
-		bool CreateCustomer (Customer customer);
+		int CreateCustomer (Customer customer);
 
 		/// <summary>
 		/// Actualiza un cliente

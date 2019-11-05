@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MultiLayerSolution.Dal;
 using MultiLayerSolution.Model;
@@ -34,18 +33,12 @@ namespace MultiLayerSolution.Bll.Customers
 		/// </summary>
 		/// <param name="customer"></param>
 		/// <returns></returns>
-		public bool Create (Customer customer)
+		public int Create (Customer customer)
 		{
-			try {
-				using var db = OpenContext ();
-				if (db.Customers.Exists (c => c.Id.Equals (customer.Id))) {
-					throw new Exception ("Clave duplicada");
-				}
-				db.Customers.Add (customer);
-				return true;
-			} catch {
-				return false;
-			}
+			using var db = OpenContext ();
+			db.Customers.Add (customer);
+			db.SaveChanges ();
+			return customer.Id;
 		}
 		
 		/// <summary>
@@ -55,15 +48,11 @@ namespace MultiLayerSolution.Bll.Customers
 		/// <returns></returns>
 		public bool Update (Customer customer)
 		{
-			try {
-				using var db = OpenContext ();
-				Delete (customer);
-				db.Customers.Add (customer);
-				return true;
-
-			} catch {
-				return false;
-			}
+			using var db = OpenContext ();
+			Delete (customer);
+			db.Customers.Add (customer);
+			db.SaveChanges ();
+			return true;
 		}
 
 		/// <summary>
@@ -73,14 +62,11 @@ namespace MultiLayerSolution.Bll.Customers
 		/// <returns></returns>
 		public bool Delete (Customer customer)
 		{
-			try {
-				using var db = OpenContext ();
-				var model = Get (customer.Id);
-				db.Customers.Remove (model);
-				return true;
-			} catch {
-				return false;
-			}
+			using var db = OpenContext ();
+			var model = Get (customer.Id);
+			db.Customers.Remove (model);
+			db.SaveChanges ();
+			return true;
 		}
 
 		/// <summary>

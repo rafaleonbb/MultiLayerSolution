@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MultiLayerSolution.Bll;
 using MultiLayerSolution.Model;
 
@@ -37,8 +38,8 @@ namespace ConsoleClient
 				var selectedOption = Console.ReadKey ();
 				switch (selectedOption.Key) {
 				case ConsoleKey.D1:
-				CustomersList ();
-				break;
+					CustomersList ();
+					break;
 
 				case ConsoleKey.D2:
 					CreateCustomer ();
@@ -59,14 +60,12 @@ namespace ConsoleClient
 		/// </summary>
 		static void CreateCustomer ()
 		{
-			var id = Logic.GetCustomers ().Count + 1;
 			var customer = new Customer {
-				Id = id,
-				Name = $"Soy el cliente {id}",
-				Address = $"Dirección del cliente {id}",
-				Phone = $"555 {id}"
+				Name = $"Cliente creado automáticamente",
+				Address = $"Dirección del cliente",
+				Phone = $"555"
 			};
-			Logic.CreateCustomer (customer);
+			var id = Logic.CreateCustomer (customer);
 			Console.Clear ();
 			Console.WriteLine ($"Se ha creado el cliente {id}");
 			Console.ReadKey ();

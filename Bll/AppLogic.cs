@@ -18,7 +18,20 @@ namespace MultiLayerSolution.Bll
 		/// <summary>
 		/// Inicializa una nueva instancia de <see cref="AppLogic"/>
 		/// </summary>
-		public AppLogic () => Current = this;
+		public AppLogic ()
+		{
+			Current = this;
+			CheckDatabase ();
+		}
+
+		/// <summary>
+		/// Crea la base de datos si no existe
+		/// </summary>
+		void CheckDatabase ()
+		{
+			using var db = OpenContext ();
+			db.Database.EnsureCreated ();
+		}
 
 		/// <summary>
 		/// Abre el contexto de la base de datos
@@ -46,7 +59,7 @@ namespace MultiLayerSolution.Bll
 		/// </summary>
 		/// <param name="customer"></param>
 		/// <returns></returns>
-		public bool CreateCustomer (Customer customer) => new CustomersLogic ().Create (customer);
+		public int CreateCustomer (Customer customer) => new CustomersLogic ().Create (customer);
 
 		/// <summary>
 		/// Actualiza un cliente
