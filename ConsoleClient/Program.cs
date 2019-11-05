@@ -27,6 +27,8 @@ namespace ConsoleClient
 			var options = new List<string> {
 				"1. Lista de clientes",
 				"2. Crear un cliente nuevo",
+				"3. Modificar un cliente",
+				"4. Eliminar un cliente",
 				"0. Salir"
 			};
 			while (true) {
@@ -43,6 +45,14 @@ namespace ConsoleClient
 
 				case ConsoleKey.D2:
 					CreateCustomer ();
+					break;
+
+				case ConsoleKey.D3:
+					EditCustomer ();
+					break;
+
+				case ConsoleKey.D4:
+					DeleteCustomer ();
 					break;
 
 				case ConsoleKey.D0:
@@ -71,6 +81,53 @@ namespace ConsoleClient
 			Console.ReadKey ();
 		}
 
+		/// <summary>
+		/// Edita un cliente
+		/// </summary>
+		static void EditCustomer ()
+		{
+			var id = GetIdToEditOrDelete ();
+			if (id == 0) {
+				Console.WriteLine ("Id no válida");
+				return;
+			}
+			var customer = Logic.GetCustomer (id);
+			customer.Name = "Nombre modificado";
+			Logic.UpdateCustomer (customer);
+			Console.WriteLine ("Cliente modificado correctamente");
+			Console.ReadKey ();
+		}
+
+		/// <summary>
+		/// Eliminar un cliente
+		/// </summary>
+		static void DeleteCustomer ()
+		{
+			var id = GetIdToEditOrDelete ();
+			if (id == 0) {
+				Console.WriteLine ("Id no válida");
+				return;
+			}
+			var customer = new Customer { Id = id };
+			Logic.DeleteCustomer (customer);
+			Console.WriteLine ("Cliente eliminado correctamente");
+			Console.ReadKey ();
+		}
+
+		/// <summary>
+		/// Pide una id para editar o modificar un cliente
+		/// </summary>
+		/// <returns></returns>
+		static int GetIdToEditOrDelete ()
+		{
+			Console.Clear ();
+			Console.WriteLine ("Introduzca el id de cliente: ");
+			var input = Console.ReadLine ();
+			if (!int.TryParse (input, out int id)) {
+				id = 0;
+			}
+			return id;
+		}
 		/// <summary>
 		/// Lista de clientes
 		/// </summary>
